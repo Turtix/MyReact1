@@ -50,8 +50,6 @@
  使用组件
     ReactDOM.render(<MyComponent1></MyComponent1>,document.getElementById('example1'));
     ReactDOM.render(<MyComponent2 />,document.getElementById('example2'));
-
-
 ###React组件三大属性1: state
    1.设置初始值
     用类的构造方法.  //参数props的作用,用来在constructor函数中操作this.props.
@@ -107,32 +105,31 @@
     用来: 获取组件外的属性和方法. 属于组件外.
          组件内接收数据和显示数据     组件内部只读不能修改
 ###React组件三大属性3: refs
-/*
 获取当前DOM元素:
 方式一:   建议使用
       标签里面写ref属性:<input type="text" ref={this.xxx}/>
-      结合:constructor(props){
+      组件内部结合:constructor(props){
             super(props);
         this.xxx = React.createRef();
       }
-      在组件中可以通过this.createRef.current获取当前的DOM元素.
-方式二:
-    <input type="text" ref={(input)=>this.funcRef = input}/>&nbsp;&nbsp;
+      在组件中可以通过this.xxx.current获取当前的DOM元素.通过this.xxx.current.value获取当前DOM元素的内容.  
+方式二:  
+    标签里面写ref属性:<input type="text" ref={(input)=>this.funcRef = input}/>&nbsp;&nbsp;
     在组件中可以通过: this.funcRef 获取当前的DOM元素.
 
 方式三:   淘汰
-      <input type="text" ref="stringRef"/>
+      标签里面写ref属性:<input type="text" ref="stringRef"/>
       在组件中可以通过: this.refs.stringRef 获取当前的DOM元素.
 
 清空数据:
-    this.createRef.current.value = ''; //提示后清空数据. 
-    注意不能用value = ''(清空的是变量的值不是DOM元素的属性值.).
-
-*/
+    this.xxx.current.value = ''; //提示后清空数据. 
+    注意不能用:
+        const value = this.xxx.current.value;
+        value = ''(清空的是变量的值不是DOM元素的属性值.).
   用来: 获取DOM元素。
-
-
-###
+###jsx语法
+ 注释: {*多行注释*}
+       //单行注释
 ###脚手架
    cd 切换文件
    create-react-app  myreact

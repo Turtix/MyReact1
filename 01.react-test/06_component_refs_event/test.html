@@ -19,8 +19,60 @@
       2. 点击按钮, 提示第一个输入框中的值
       3. 当第2个输入框失去焦点时, 提示这个输入框中的值
    */
+    class Input extends React.Component{
+      constructor(props){
+        super(props);
+        this.xxx = React.createRef();  //方式一
+      }
+      //点击提示方法
+      handleClick = ()=>{
+        //获取当前的DOM元素.
+        // console.log(this.createRef.current);  //方式一
+        // console.log(this.funcRef);  //方式二
+        // console.log(this.refs.stringRef);  //方式三
+        const  value = this.xxx.current.value.trim();  //首尾去空格
+        alert(value);   //提示信息
+        this.xxx.current.value = ''; //提示后清空数据. 注意不能用value = ''(清空的是变量的值不是DOM元素的属性值.).
+      }
 
+      //失去焦点方法
+      handleBlur=(event)=>{
+          //获取触发事件的DOM元素.
+          console.log(event.target);
+          const  value = event.target.value.trim();
+          alert(value);
+          event.target.value = '';
+      }
 
+      /*
+        获取当前DOM元素:
+        方式一:   建议使用
+              标签里面写ref属性:<input type="text" ref={this.createRef}/>
+              结合:constructor(props){
+                    super(props);
+                this.createRef = React.createRef();
+              }
+              在组件中可以通过this.createRef.current获取当前的DOM元素.
+        方式二:
+            <input type="text" ref={(input)=>this.funcRef = input}/>&nbsp;&nbsp;
+            在组件中可以通过: this.funcRef 获取当前的DOM元素.
+
+        方式三:   淘汰
+              <input type="text" ref="stringRef"/>
+              在组件中可以通过: this.refs.stringRef 获取当前的DOM元素.
+
+      */
+      render(){
+        return <div>
+          <input type="text" ref={this.xxx}/>&nbsp;&nbsp;
+          {/*<input type="text" ref={(input)=>this.funcRef = input}/>&nbsp;&nbsp;*/}
+           {/*  这是jsx中注释的写法:<input type="text" ref="stringRef"/>&nbsp;&nbsp; */}
+          <button onClick={this.handleClick}>点击提示数据</button>&nbsp;&nbsp;
+          <input type="text" placeholder="失去焦点提示数据"  onBlur={this.handleBlur}/>
+        </div>
+      }
+    }
+    ReactDOM.render(<Input />, document.getElementById('example'));
 
   </script>
 </body>
