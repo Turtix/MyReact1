@@ -18,28 +18,42 @@
     3. 不提交表单
   */
   class Form extends React.Component{
-    //1.非受控组件(props)方式: 不推荐使用.
-    constructor(props){
-      super(props);
-      this.usernameRef = React.createRef();
-      this.passwordRef = React.createRef();
-    }
+    state = {
+      username:'',
+      password:''
+    };
     handleSubmit = (e)=>{
       // 禁止默认行为
       e.preventDefault();
       //收集表单数据
-      const username = this.usernameRef.current.value;
-      const password = this.passwordRef.current.value;
+      const {username,password} = this.state;
       // 发送请求 xxx
       alert(`用户名:${username},密码:${password}`);
     }
-
+   /* passwordChange = (e)=>{
+      console.log(e.target.value)
+      this.setState({
+        password: e.target.value
+      })
+    }
+    usernameChange = (e)=>{
+      console.log(e.target.value)
+      this.setState({
+        name: e.target.value
+      })
+    }*/
+    //公共部分收取
+    change = (stateName, stateValue)=>{
+        this.setState({
+          [stateName]: stateValue   //对象的属性名为变量时,要用[xxx]的写法.
+        })
+    }
     render(){
-
+      //回调函数 onChange={(e)=>this.change('username',e.target.value)} 绑定一个事件,事件的返回值是一个函数change,再给事件传参数.闭包
       return (
           <form action="/" onSubmit={this.handleSubmit}>
-            用户名:<input type="text" name="username" ref={this.usernameRef}/><br/>
-            密码:<input type="password" name="password" ref={this.passwordRef}/><br/>
+            用户名:<input type="text" name="username" onChange={(e)=>this.change('username',e.target.value)}/><br/>
+            密码:<input type="password" name="password" onChange={(e)=>this.change('password',e.target.value)}/><br/>
             <input type="submit" value="登录"/>
           </form>
       )

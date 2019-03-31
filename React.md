@@ -127,6 +127,12 @@
         const value = this.xxx.current.value;
         value = ''(清空的是变量的值不是DOM元素的属性值.).
   用来: 获取DOM元素。
+###受控和非受控组件组件
+   非受控组件: 直接用resf收集表单数据. 官网不推荐直接操作DOM元素.
+   受控组件(专门用来收集表单数据的): 
+        用state状态来保存组件内的数据,通过输入框的onChange事件来更新状态值.
+   禁止表单的默认行为
+       先给form表单绑定事件:onSubmit,再用 e.preventDefault();
 ###jsx语法
  注释: {*多行注释*}
        //单行注释
