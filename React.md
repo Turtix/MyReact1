@@ -1,9 +1,22 @@
+ ###使用React需要引入的库
+    <script src="../js/react.development.js"></script>
+    <script src="../js/react-dom.development.js"></script>
+    <script src="../js/babel.min.js"></script>
+    其中react是react-dom的依赖.
  ###创建虚拟DOM对象方式
-   1.js语法标签字符串 : 
+   1.js语法(标签字符串) : 
        const vDom = '<h1>Hello React!</h1>'; 
+       const vDom2 = React.createElement('h2',{id:'myId',className:'test1-h2'},'这是js语法的h2',子虚拟DOM对象);
+        不需要引入babel库
    2.React jsx语法: 
        const vDom = <h1>Hello React!</h1>;  
-        
+       const content = '这是jsx语法的h2';
+       const  id = 'myId2';
+       const  vDom3 = <h2 id={id}>{content}<span>这是jsx的span</span></h2>;
+       需要引入babel库,将jsx语法转化成为浏览器能够是别的语法.
+   共同点及注意点: 
+     类名需要用: className.
+     要将script标签的将 text/javascript 改为 text/babel 才能生效
  ###React定义组件.
  注意: 1.组件名首字母必须大写.
            2.组件标签(所有js的标签)必须要有结束符.

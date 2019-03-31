@@ -9,7 +9,25 @@
   <div id="test2"></div>
   <script type="text/javascript" src="../js/react.development.js"></script>
   <script type="text/javascript" src="../js/react-dom.development.js"></script>
-  <script type="text/javascript">
+  <script type="text/babel" >
+    /*
+      1.js语法.
+      注意类名需要用: className.   不需要引入babel.min.js这个库.
+    */
+    const vDom2 = React.createElement('span',{},'这是js语法的span');
+    const vDom1 = React.createElement('h2',{id:'myId',className:'test1-h2'},'这是js语法的h2',vDom2);
+    ReactDOM.render(vDom1,document.getElementById('test1'));
+
+  </script>
+  <script type="text/javascript" src="../js/babel.min.js"></script>
+  <script type="text/babel" >
+    /*
+        2.jsx语法.
+    */
+    const content = '这是jsx语法的h2';
+    const  id = 'myId2';
+    const  vDom3 = <h2 id={id}>{content}<span>这是jsx的span</span></h2>;
+    ReactDOM.render(vDom3,document.getElementById('test2'));
 
   </script>
 </body>
