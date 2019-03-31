@@ -131,6 +131,8 @@
    非受控组件: 直接用resf收集表单数据. 官网不推荐直接操作DOM元素.
    受控组件(专门用来收集表单数据的): 
         用state状态来保存组件内的数据,通过输入框的onChange事件来更新状态值.
+        注意: 不要在回调函数中写箭头函数，它会每次渲染时重新创建新的函数，性能不好.
+        需要用到高阶函数(返回值是函数的函数): 外层函数传递参数  内层函数才是真正的事件回调(用到闭包).
    禁止表单的默认行为
        先给form表单绑定事件:onSubmit,再用 e.preventDefault();
 ###jsx语法
@@ -150,24 +152,26 @@
 
 ###生命周期函数
    *初始化渲染: 
+   ```
         执行顺序:
               constructor()
               componentWillMount()
               render()
               componentDidMount()
         函数作用:
-            constructor()  构造方法   只在初始化渲染时调用一次
+            constructor()  构造方法                   只在初始化渲染时调用一次
                 1. 初始化state
                 2. 初始化React.createRef()
                 3. 绑定函数的this指向（过去用,现在不用）
-            componentWillMount()   组件将要被挂载  只在初始化渲染时调用一次 (将废弃)
+            componentWillMount()   组件将要被挂载      只在初始化渲染时调用一次 (将废弃)
                 将来的17版本将被标记为UNSAFE，在未来18版本直接被废弃
                 这个函数一般没用
             render()  
                 用来生成将要渲染的组件,但是组件还没有被渲染.
-            componentDidMount()   组件已经被挂载.  只在初始化渲染时调用一次
+            componentDidMount()   组件已经被挂载.      只在初始化渲染时调用一次
                 1. 发送ajax请求
                 2. 设置异步任务 --> 绑定事件或者设置定时器等
+   ```
    *更新渲染:
         函数有:  (执行顺序如下)
             componentWillReceiveProps()   组件将要接收props  (将废弃)

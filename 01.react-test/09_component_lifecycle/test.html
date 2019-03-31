@@ -17,10 +17,32 @@
     2. 切换时间为2S
     3. 点击按钮从界面中移除组件界面
    */
-
-
-
-
+  class MyComponent extends React.Component{
+    state={
+      opacity: 1
+    }
+    componentDidMount(){
+      setInterval(()=>{
+        let {opacity} = this.state;
+        opacity  -= 0.01;
+        if(opacity <= 0){ opacity = 1; }
+         this.setState({
+           opacity: opacity
+         })
+        console.log(opacity)
+      },1000/60)
+    }
+    render(){
+      const {opacity} = this.state;
+      return (
+          <div>
+            <h2 style={{opacity}}>React学不会咋办呢?</h2>
+            <button>不活了or继续写</button>
+          </div>
+      )
+    }
+  }
+  ReactDOM.render(<MyComponent />,document.getElementById('example'));
 </script>
 </body>
 </html>

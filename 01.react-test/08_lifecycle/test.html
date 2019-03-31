@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>09_form</title>
+</head>
+<body>
+<div id="example"></div>
+
+<script type="text/javascript" src="../js/react.development.js"></script>
+<script type="text/javascript" src="../js/react-dom.development.js"></script>
+<script type="text/javascript" src="../js/babel.min.js"></script>
+<script type="text/babel">
+  class MyComponent extends React.Component{
+    /*
+      执行顺序:
+      constructor()
+      componentWillMount()
+      render()
+      componentDidMount()
+    */
+    constructor(props){
+      super(props);
+      this.state = {
+        flag : true
+      }
+      console.log('constructor()');
+    }
+    componentWillMount(){
+      console.log('componentWillMount()');
+    }
+    componentDidMount(){
+      console.log('componentDidMount()');
+      setTimeout(()=>{
+        this.setState({
+          flag : !this.state.flag
+        })
+
+
+      },1000)
+    }
+    render(){
+      console.log('render()')
+      return <h1>生命周期   test初始化渲染</h1>
+    }
+  }
+  ReactDOM.render(<MyComponent/>,document.getElementById('example'));
+</script>
+</body>
+</html>

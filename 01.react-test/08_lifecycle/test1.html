@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>09_form</title>
+</head>
+<body>
+<div id="example"></div>
+
+<script type="text/javascript" src="../js/react.development.js"></script>
+<script type="text/javascript" src="../js/react-dom.development.js"></script>
+<script type="text/javascript" src="../js/babel.min.js"></script>
+<script type="text/babel">
+  class MyComponent extends React.Component{
+    /*
+      执行顺序:
+      constructor()
+      componentWillMount()
+      render()
+      componentDidMount()
+    */
+    constructor(props){
+      super(props);
+      this.state = {
+        flag: true
+      }
+      console.log('constructor()');
+    }
+    componentWillMount(){
+      console.log('componentWillMount()');
+    }
+    componentDidMount(){
+      console.log('componentDidMount()');
+      setTimeout(()=>{
+        this.setState({
+          flag : !this.state.flag
+        })
+        //清除组件的方法  从某个节点上卸载组件.
+        ReactDOM.unmountComponentAtNode(document.getElementById('example'))
+      },1000)
+    }
+
+    render(){
+      const {flag} = this.state;
+      console.log('render()')
+      return <h1 >生命周期</h1>
+    }
+    /*
+      组件是否要更新  用于react性能优化处理
+    */
+    shouldComponentUpdate(prevProps, nextState){
+      console.log(prevProps, nextState);
+      console.log('shouldComponentUpdate()');
+      return true;  //使用时必须要有一个返回值
+    }
+    /*componentWillUpdate(){
+      console.log('componentWillUpdate()');
+    }*/
+
+    componentDidUpdate(){
+      console.log('componentDidUpdate()');
+    }
+    componentWillUnmount(){
+      console.log('componentWillUnmount()');
+    }
+  }
+  ReactDOM.render(<MyComponent/>,document.getElementById('example'));
+</script>
+</body>
+</html>
