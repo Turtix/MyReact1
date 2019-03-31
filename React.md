@@ -68,21 +68,23 @@
      this.setState({
           isLikeMe: !isLikeMe
      })
-    用來: 保存组件内的数据  和  更新界面数据.属于组件内
+    属于组件内,用來: 保存组件内的数据  和  更新界面数据.
+    
+    原理：用户界面要发生变化，就更新state，导致组件重新渲染，从而更新页面
 ###React组件三大属性2: props
-    //对属性进行必要性检查
+    *1.接收数据者,对属性进行必要性检查
       Person.propTypes = {
         name: PropTypes.string,
         age: PropTypes.number.isRequired,
         sex:PropTypes.string.isRequired
       };
     
-      //为属性设置默认值
+    *2.接收数据者,为属性设置默认值
       Person.defaultProps = {
         name:'ccc'
       };
       
- 简写方式如下:
+    *简写方式如下:
           //对属性进行必要性检查
           static propTypes = {
             name: PropTypes.string,
@@ -94,12 +96,16 @@
           static defaultProps = {
             name:'ccc'
           };
-    用来获取组件外的属性和方法. 属于组件外.
-    接收数据和显示数据  组件内部只读不能修改
-    //传递给组件
-    ReactDOM.render(<Person age={person.age} sex={person.sex}/>,document.getElementById('example1'));
-    //获取组件外,向组件内传递的标签属性
-    const {name,age,sex} = this.props;
+    
+    *3.传递给组件
+        ReactDOM.render(<Person age={person.age} sex={person.sex}/>,document.getElementById('example1'));
+        注意 : age={person.age} sex={person.sex}  可以简写成{...person}
+              这一过程是由babel帮助对象识别三点运算符语法
+    *4.获取组件外,向组件内传递的标签属性
+        const {name,age,sex} = this.props;
+    
+    用来: 获取组件外的属性和方法. 属于组件外.
+         组件内接收数据和显示数据     组件内部只读不能修改
 ###React组件三大属性3: refs
 /*
 获取当前DOM元素:

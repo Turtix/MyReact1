@@ -16,9 +16,9 @@
 <script type="text/babel">
 
   /*
-需求: 自定义用来显示一个人员信息的组件, 效果如页面. 说明
-  1). 如果性别没有指定, 默认为男
-  2). 如果年龄没有指定, 默认为18
+  需求: 自定义用来显示一个人员信息的组件, 效果如页面. 说明
+    1). 如果性别没有指定, 默认为男
+    2). 如果年龄没有指定, 默认为18
   */
   const  person = {
       name:'xixi',
@@ -27,10 +27,23 @@
   };
 
   class Person extends React.Component{
+    //简写方式如下:
+    //对属性进行必要性检查
+    static propTypes = {
+      name: PropTypes.string.isRequired,
+      age: PropTypes.number,
+      sex:PropTypes.string
+    };
+
+    //为属性设置默认值
+    static defaultProps = {
+      age:18,
+      sex:'男'
+  };
+
     render(){
       //获取组件外,向组件内传递的标签属性
       const {name,age,sex} = this.props;
-
       return  <ul>
         <li>姓名:{name}</li>
         <li>年龄:{age}</li>
@@ -38,19 +51,9 @@
       </ul>
     }
   }
-  //对属性进行必要性检查
-  Person.propTypes = {
-    name: PropTypes.string.isRequired,
-    age: PropTypes.number,
-    sex:PropTypes.string
-  };
-
-  //为属性设置默认值
-  Person.defaultProps = {
-    age:18,
-    sex:'男'
-  };
-  ReactDOM.render(<Person name={person.name} sex={person.sex}/>,document.getElementById('example1'));
+  //age={person.age} sex={person.sex}  可以简写成{...person}
+  //这一过程是babel帮助对象识别三点运算符语法
+  ReactDOM.render(<Person {...person}/>,document.getElementById('example1'));
 </script>
 </body>
 </html>
