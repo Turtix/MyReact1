@@ -22,7 +22,7 @@
       opacity: 1
     }
     componentDidMount(){
-      setInterval(()=>{
+      this.timmer = setInterval(()=>{
         let {opacity} = this.state;
         opacity  -= 0.01;
         if(opacity <= 0){ opacity = 1; }
@@ -32,12 +32,20 @@
         console.log(opacity)
       },1000/60)
     }
+    handleUnmount = ()=>{
+      //清除组件的方法  从某个节点上卸载组件.
+      ReactDOM.unmountComponentAtNode(document.getElementById('example'))
+    }
+    componentWillUnmount() {
+        clearInterval(this.timmer);
+    }
+
     render(){
       const {opacity} = this.state;
       return (
           <div>
             <h2 style={{opacity}}>React学不会咋办呢?</h2>
-            <button>不活了or继续写</button>
+            <button onClick={this.handleUnmount}>不活了or继续写</button>
           </div>
       )
     }

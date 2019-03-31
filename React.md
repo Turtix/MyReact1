@@ -138,6 +138,8 @@
 ###jsx语法
  注释: {*多行注释*}
        //单行注释
+ 样式写法:
+       {{opacity:1,marginTop:10}}   //驼峰命名法
 ###脚手架
    cd 切换文件
    create-react-app  myreact
