@@ -6,14 +6,91 @@
 </head>
 <body>
 
-  <div id="example"></div>
+<div id="example"></div>
 
-  <script type="text/javascript" src="../js/react.development.js"></script>
-  <script type="text/javascript" src="../js/react-dom.development.js"></script>
-  <script type="text/javascript" src="../js/prop-types.js"></script>
-  <script type="text/javascript" src="../js/babel.min.js"></script>
-  <script type="text/babel">
-    
-  </script>
+<script type="text/javascript" src="../js/react.development.js"></script>
+<script type="text/javascript" src="../js/react-dom.development.js"></script>
+<script type="text/javascript" src="../js/prop-types.js"></script>
+<script type="text/javascript" src="../js/babel.min.js"></script>
+<script type="text/babel">
+  //定义App组件
+  class APP extends  React.Component{
+    //定义状态数据
+    state = {
+      todoList: ['吃饭','睡觉','打豆豆']
+    }
+
+    //定义操作状态数据的方法.
+    add = (todo)=>{
+      const { todoList } = this.state;
+      this.setState({
+        todoList:[todo,...todoList]  //不会修改原数据.
+      })
+    }
+
+    render(){
+      // 获取状态数据
+      const { todoList } = this.state;
+      return (
+              <div>
+                <h1>SimpleToDo List</h1>
+                <AddTODo add={this.add} length={todoList.length}/>
+                <TODoList todoList={todoList}/>
+              </div>
+      )
+    }
+  }
+  //定义AddTODo组件
+  class AddTODo extends  React.Component{
+    static propTypes = {
+      add: PropTypes.func.isRequired
+    };
+    constructor(props){
+      super(props);
+      this.msInput = React.createRef();
+    }
+    //添加todo
+    addToDo = ()=>{
+      //获取文本框的值
+      const  value = this.msInput.current.value.trim();
+      if(value){
+        this.props.add(value);
+      }
+      //清空input输入框
+      this.msInput.current.value = '';
+    }
+    render(){
+      // 获取组件外向组件内传递的标签属性
+      // const { todoList } = this.props;
+      const {length} = this.props;
+      return  (
+              <div>
+                <input type="text" ref={this.msInput}/>
+                <button onClick={this.addToDo}>Add #{length}</button>
+              </div>
+      )
+    }
+  }
+  //定义TODoList组件
+  class TODoList extends  React.Component{
+    //对属性进行必要性检查
+    static propTypes = {
+      todoList: PropTypes.array.isRequired
+    };
+
+    render(){
+      // 获取组件外向组件内传递的标签属性
+      const { todoList } = this.props;
+      return(
+              <ul>
+                {
+                  todoList.map((item,index)=>{return <li key={index}>{item}</li>})
+                }
+              </ul>
+      )
+    }
+  }
+  ReactDOM.render(<APP/>,document.getElementById('example'));
+</script>
 </body>
 </html>
