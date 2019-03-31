@@ -60,14 +60,14 @@
           this.state = {
             isLikeMe: false
           }
-    可以简写: 不需要写类的构造方法.
+    可以简写为: 不需要写类的构造方法.
            state = {
              isLikeMe: false
            }
-    2.更新状态  (事件里面写)
+    2.更新状态  
      this.setState({
-              isLikeMe: !isLikeMe
-            })
+          isLikeMe: !isLikeMe
+     })
     用來: 保存组件内的数据  和  更新界面数据.属于组件内
 ###React组件三大属性2: props
     //对属性进行必要性检查

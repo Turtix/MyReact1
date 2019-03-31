@@ -24,26 +24,20 @@
   */
   const example = document.getElementById('example');
   class MyComponent extends React.Component{
-    //类的构造方法.
-    constructor(props){
-      super(props);
-      this.state = {
-        isLikeMe: false
-      }
-
-      //1.bind专门用来,修正回调函数的this指向.
-      //this.handleClick.bind(this)返回一个修改后的新函数.
-      this.handleClick = this.handleClick.bind(this);
+    //简写形式 不需要写类的构造方法.
+    state = {
+      isLikeMe: false
     }
 
     //2.只要变成箭头函数  this就能指向实例对象.
-    handleClick = function(){
-      const  {isLikeMe} = this.state;  //解构赋值
+    handleClick = ()=>{
+      // 读取之前的状态
+      const  {isLikeMe} = this.state;
+      //更新状态
       this.setState({
         isLikeMe: !isLikeMe
       })
     }
-
     //方法是实例对象身上的,所以需要下面使用时需要加this
     render() {
       const  {isLikeMe} = this.state;
@@ -51,6 +45,7 @@
     }
   }
   ReactDOM.render(<MyComponent/>,example);
+
 
 </script>
 </body>
