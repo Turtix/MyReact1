@@ -21,17 +21,19 @@
   */
 class MostPopular extends  React.Component{
   /*
-    方法一:用axios实现.
+    方法二:用fetch实现.
   */
   state = {
     name:'',
     url:''
   }
   componentDidMount(){
-     axios.get('https://api.github.com/search/repositories?q=r&sort=stars',{})
+    //如果需要处理兼容性问题还需要引入fetch的库fetch.js  可以把fetch方法转化成原始的ajax形式.
+     fetch('https://api.github.com/search/repositories?q=v&sort=stars') //区别于axios  直接写请求地址.
+         .then(res=>res.json())   //区别于axios  多了一步操作
          .then(response =>{
-           // console.log(response);
-           const { name, html_url } = response.data.items[0];
+           console.log(response);
+           const { name, html_url } = response.items[0];
            this.setState({
              name:name,
              url:html_url
